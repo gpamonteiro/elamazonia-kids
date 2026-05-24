@@ -1,0 +1,16 @@
+pre-commit:
+  parallel: true
+  commands:
+    biome:
+      glob: "*.{ts,tsx,js,jsx,json,jsonc}"
+      run: pnpm biome check --write --no-errors-on-unmatched {staged_files}
+      stage_fixed: true
+    typecheck:
+      run: pnpm typecheck
+    gitleaks:
+      run: gitleaks protect --staged --no-banner --verbose
+
+pre-push:
+  commands:
+    test:
+      run: pnpm test
